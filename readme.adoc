@@ -1,0 +1,1 @@
+Example code from the https://www.manning.com/books/spring-security-in-action[Spring Security in Action] book.
