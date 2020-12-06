@@ -18,21 +18,12 @@
 
 package org.nerdcoding.example.ssia.ch2.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    private final CustomAuthenticationProvider customAuthenticationProvider;
-
-    @Autowired
-    public SecurityConfig(final CustomAuthenticationProvider customAuthenticationProvider) {
-        this.customAuthenticationProvider = customAuthenticationProvider;
-    }
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
@@ -40,11 +31,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .anyRequest()
                 .authenticated();
-    }
-
-    @Override
-    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(customAuthenticationProvider);
     }
 
 }
