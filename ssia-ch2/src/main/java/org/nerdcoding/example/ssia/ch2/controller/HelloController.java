@@ -16,7 +16,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/gpl-2.0.html>.
  */
 
-package org.nerdcoding.example.ssia.ch2;
+package org.nerdcoding.example.ssia.ch2.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
