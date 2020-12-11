@@ -9,3 +9,12 @@ git checkout ch3-ex1
 Provide custom user implementation of `UserDatails` and custom service implementation
 of `UserDetailsService`.
 
+=== Example 2
+
+```
+git checkout ch3-ex2
+```
+
+An H2 in memory database is created which contains a `users` table. The `JdbcUserDetailsManager`
+is used for authentication of database users.
+
