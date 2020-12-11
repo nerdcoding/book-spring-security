@@ -1,0 +1,48 @@
+
+
+=== Example 1
+
+```
+git checkout ch2-ex1
+```
+
+Endpoint with default security config. During container start the password is written to the
+log and could be used with HTTP basic auth.
+
+=== Example 2
+
+```
+git checkout ch2-ex2
+```
+
+Configures a `UserDetailsService` implementation (`InMemoryUserDetailsManager`) with one user.
+
+=== Example 3
+
+```
+git checkout ch2-ex3
+```
+
+The same as in example 2 but with another configuration variant. This time the `WebSecurityConfigurerAdapter`
+is extended. With the `HttpSecurity` we configure HTTP basic auth for all requests. With the
+`AuthenticationManagerBuilder` the `InMemoryUserDetailsManager` with one user is configured.
+
+=== Example 5
+
+```
+git checkout ch2-ex5
+```
+
+Here a custom `AuthenticationProvider` is implemented. The default `AuthenticationProvider`
+normally delegates finding the user to the `UserDetailsService` nad validating the password
+to the `PasswordEncoder`. Here in the custom `AuthenticationProvider` this implemented manually.
+
+=== Example 6
+
+```
+git checkout ch2-ex6
+```
+
+The  `WebSecurityConfigurerAdapter` is extended and configures with the `HttpSecurity` an
+HTTP basic auth for all requests. The `UserDetailsService` and `PasswordEncoder` is separated
+into it's own config.
