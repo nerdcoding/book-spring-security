@@ -4,7 +4,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.nerdcoding.example.ssia.ch2</groupId>
+    <groupId>org.nerdcoding.example.ssia</groupId>
     <artifactId>ssia-ch2</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>ssia-ch2</name>
