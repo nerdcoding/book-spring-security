@@ -18,24 +18,28 @@
 
 package org.nerdcoding.example.ssia.ch3.config;
 
-import org.nerdcoding.example.ssia.ch3.model.User;
-import org.nerdcoding.example.ssia.ch3.service.InMemoryUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
-import java.util.List;
+import javax.sql.DataSource;
 
 @Configuration
 public class SecurityConfig {
 
+    private final DataSource dataSource;
+@Autowired
+    public SecurityConfig(final DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @Bean
     public UserDetailsService userDetailsService() {
-        return new InMemoryUserDetailsService(
-                List.of(new User("bob", "12345", "READ"))
-        );
+        return new JdbcUserDetailsManager(dataSource);
     }
 
     @Bean
