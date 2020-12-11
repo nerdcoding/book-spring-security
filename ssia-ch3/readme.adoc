@@ -1,0 +1,11 @@
+
+
+=== Example 1
+
+```
+git checkout ch3-ex1
+```
+
+Provide custom user implementation of `UserDatails` and custom service implementation
+of `UserDetailsService`.
+
