@@ -20,6 +20,8 @@ package org.nerdcoding.example.ssia.ch9.config;
 
 import org.nerdcoding.example.ssia.ch9.config.filter.AuthenticationLoggingFilter;
 import org.nerdcoding.example.ssia.ch9.config.filter.RequestValidationFilter;
+import org.nerdcoding.example.ssia.ch9.config.filter.StaticKeyAuthenticationFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -28,6 +30,13 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final StaticKeyAuthenticationFilter staticKeyAuthenticationFilter;
+
+    @Autowired
+    public SecurityConfig(final StaticKeyAuthenticationFilter staticKeyAuthenticationFilter) {
+        this.staticKeyAuthenticationFilter = staticKeyAuthenticationFilter;
+    }
+
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http.addFilterBefore(
@@ -35,6 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 BasicAuthenticationFilter.class
         ).addFilterAfter(
                 new AuthenticationLoggingFilter(),
+                BasicAuthenticationFilter.class
+        ).addFilterAt(
+                staticKeyAuthenticationFilter,
                 BasicAuthenticationFilter.class
         ).authorizeRequests().anyRequest().permitAll();
     }
