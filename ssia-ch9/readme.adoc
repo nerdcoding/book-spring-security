@@ -1,0 +1,9 @@
+
+
+=== Example 1
+
+```
+git checkout ch9-ex1
+```
+
+Add a filter before authentication checking if a 'REQUEST_ID' header is present.
