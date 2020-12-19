@@ -18,6 +18,7 @@
 
 package org.nerdcoding.example.ssia.ch9.config;
 
+import org.nerdcoding.example.ssia.ch9.config.filter.AuthenticationLoggingFilter;
 import org.nerdcoding.example.ssia.ch9.config.filter.RequestValidationFilter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -31,6 +32,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         http.addFilterBefore(
                 new RequestValidationFilter(),
+                BasicAuthenticationFilter.class
+        ).addFilterAfter(
+                new AuthenticationLoggingFilter(),
                 BasicAuthenticationFilter.class
         ).authorizeRequests().anyRequest().permitAll();
     }

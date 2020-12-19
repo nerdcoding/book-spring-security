@@ -7,3 +7,11 @@ git checkout ch9-ex1
 ```
 
 Add a filter before authentication checking if a 'REQUEST_ID' header is present.
+
+=== Example 2
+
+```
+git checkout ch9-ex2
+```
+
+Add a filter after authentication logging the 'REQUEST_ID' header.
