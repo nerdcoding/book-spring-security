@@ -7,3 +7,12 @@ git checkout ch8-ex1
 ```
 
 Use MVC matcher to authorize endpoints to roles.
+
+
+=== Example 2
+
+```
+git checkout ch8-ex2
+```
+
+Multiple examples using MVC matcher to authorize endpoints.

@@ -19,6 +19,7 @@
 package org.nerdcoding.example.ssia.ch8.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -28,11 +29,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http.httpBasic();
+        http.csrf().disable(); // Disable CSRF to enable the 'POST /a' call.
 
         http.authorizeRequests()
-                .mvcMatchers("/hello").hasRole("ADMIN")
-                .mvcMatchers("/ciao").hasRole("MANAGER")
-                .anyRequest().authenticated();
+                .mvcMatchers(HttpMethod.GET, "/a").authenticated()
+                .mvcMatchers(HttpMethod.POST, "/a").permitAll()
+                .mvcMatchers(HttpMethod.GET, "/a/b/**").authenticated()
+                .mvcMatchers("/product/{code:^[0-9]*$}").permitAll()
+                .anyRequest().denyAll();
     }
 
 }
