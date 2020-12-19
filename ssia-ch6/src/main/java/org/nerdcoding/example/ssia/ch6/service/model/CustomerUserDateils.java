@@ -19,7 +19,7 @@
 package org.nerdcoding.example.ssia.ch6.service.model;
 
 
-import org.nerdcoding.example.ssia.ch6.persistence.entity.User;
+import org.nerdcoding.example.ssia.ch6.persistence.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
