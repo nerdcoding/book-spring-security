@@ -6,3 +6,12 @@ git checkout ch7-ex1
 
 Users have a list with 'GrantedAuthority' instances. And the 'SecurityConfig' will only allow
 access for user with specific authorities.
+
+
+=== Example 3
+
+```
+git checkout ch7-ex3
+```
+
+'GrantedAuthority' are used for role based authorization.

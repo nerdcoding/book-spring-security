@@ -30,7 +30,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.httpBasic();
         http.authorizeRequests()
                 .anyRequest()
-                //.hasAuthority("WRITE");
-                .hasAnyAuthority("READ", "WRITE");
+                .hasRole("ADMIN");
     }
 }
