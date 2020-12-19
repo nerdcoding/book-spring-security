@@ -15,3 +15,12 @@ git checkout ch9-ex2
 ```
 
 Add a filter after authentication logging the 'REQUEST_ID' header.
+
+=== Example 3
+
+```
+git checkout ch9-ex3
+```
+
+Use static key authentication with custom authentication filter, replacing Spring Security default authentication
+filter.
