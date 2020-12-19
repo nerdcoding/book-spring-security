@@ -35,13 +35,15 @@ public class UserManagementConfig {
         userDetailsService.createUser(
                 User.withUsername("bob")
                         .password("12345")
-                        .authorities("READ")
+                        //.authorities("ROLE_USER")
+                        .roles("USER")
                         .build()
         );
         userDetailsService.createUser(
                 User.withUsername("jane")
                         .password("98765")
-                        .authorities("WRITE")
+                        //.authorities("ROLE_ADMIN")
+                        .roles("ADMIN")
                         .build()
         );
 
