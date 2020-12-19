@@ -20,7 +20,7 @@ package org.nerdcoding.example.ssia.ch6.service;
 
 
 import org.nerdcoding.example.ssia.ch6.service.model.CustomerUserDateils;
-import org.nerdcoding.example.ssia.ch6.persistence.entity.User;
+import org.nerdcoding.example.ssia.ch6.persistence.entity.user.User;
 import org.nerdcoding.example.ssia.ch6.persistence.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -16,7 +16,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/gpl-2.0.html>.
  */
 
-package org.nerdcoding.example.ssia.ch6.persistence.entity;
+package org.nerdcoding.example.ssia.ch6.persistence.entity.user;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -18,7 +18,7 @@
 
 package org.nerdcoding.example.ssia.ch6.persistence.repository;
 
-import org.nerdcoding.example.ssia.ch6.persistence.entity.User;
+import org.nerdcoding.example.ssia.ch6.persistence.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
