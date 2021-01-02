@@ -1,0 +1,11 @@
+
+1. Run the authorization server from module `ssia-ch13`.
+
+2. Obtain an access token as described in `ssia-ch13/readme.adoc`.
+
+3. Call the hello resource servers endpoint:
+`curl -H "Authorization: bearer <access-token>" -v http://127.0.0.1:8081/hello`
+
+The resource server will call the `/oauth/check_token` endpoint from the authorization server
+to ensure token validity.
+
