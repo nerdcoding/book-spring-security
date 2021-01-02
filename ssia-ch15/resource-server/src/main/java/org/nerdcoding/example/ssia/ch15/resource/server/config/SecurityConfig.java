@@ -18,19 +18,44 @@
 
 package org.nerdcoding.example.ssia.ch15.resource.server.config;
 
-import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 
-@Configuration
+import javax.crypto.spec.SecretKeySpec;
+
+//@Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final String jwtKey;
+
+    public SecurityConfig(@Value("${jwt.key}") final String jwtKey) {
+        this.jwtKey = jwtKey;
+    }
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        http.httpBasic();
         http.authorizeRequests()
-                .anyRequest()
-                .authenticated();
+                .anyRequest().authenticated()
+                .and()
+                .oauth2ResourceServer(
+                        configurer -> configurer.jwt(
+                                jwtConfigurer -> jwtConfigurer.decoder(jwtDecoder())
+                        )
+                );
+    }
+
+    @Bean
+    public JwtDecoder jwtDecoder() {
+        final byte [] key = jwtKey.getBytes();
+        return NimbusJwtDecoder
+                .withSecretKey(
+                        new SecretKeySpec(key, 0, key.length, "AES")
+                )
+                .build();
     }
 
 }

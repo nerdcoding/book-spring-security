@@ -19,6 +19,8 @@
 package org.nerdcoding.example.ssia.ch15.authorization.server.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -26,21 +28,30 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @Configuration
 @EnableAuthorizationServer
 public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
+    private final String jwtKey;
     private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    public AuthServerConfig(final AuthenticationManager authenticationManager) {
+    public AuthServerConfig(
+            @Value("${jwt.key}") final String jwtKey,
+            @Autowired final AuthenticationManager authenticationManager) {
+        this.jwtKey = jwtKey;
         this.authenticationManager = authenticationManager;
     }
 
     @Override
     public void configure(final AuthorizationServerEndpointsConfigurer endpoints) {
-        endpoints.authenticationManager(authenticationManager);
+        endpoints
+                .authenticationManager(authenticationManager)
+                .tokenStore(tokenStore())
+                .tokenEnhancer(jwtAccessTokenConverter());
     }
 
     @Override
@@ -69,10 +80,20 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
                 .scopes("read")
                 .authorizedGrantTypes("password", "authorization_code", "refresh_token")
                 .redirectUris("http://127.0.0.1:9090/home")
-                .autoApprove(true)
-            .and()
-                .withClient("resourceserver")
-                .secret("resourceserversecret");
+                .autoApprove(true);
+    }
+
+    @Bean
+    public TokenStore tokenStore() {
+        return new JwtTokenStore(jwtAccessTokenConverter());
+    }
+
+    @Bean
+    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+        final JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        converter.setSigningKey(jwtKey);
+
+        return converter;
     }
 }
 

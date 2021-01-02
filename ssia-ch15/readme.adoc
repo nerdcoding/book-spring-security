@@ -1,0 +1,28 @@
+
+=== Get access token
+
+Via Browser:
+```
+http://127.0.0.1:8080/oauth/authorize?response_type=code&client_id=client&scope=read
+```
+
+The authorization server tries to call `http://127.0.0.1:9090/home?code=4hbLmN`. Then:
+```
+POST /oauth/token HTTP/1.1
+Authorization: Basic Y2xpZW50OnNlY3JldA==
+Host: 127.0.0.1:8080
+Content-Type: application/x-www-form-urlencoded
+grant_type=authorization_code&code=4hbLmN
+```
+
+=== Example 1
+
+```
+git checkout ch15-ex1
+```
+
+Using a JWT signed with a symmetric key. The authorization and resource server are using
+the same signing key. With that key the authorization server will sign the JWT when it is
+created and the resource server will use that key, to check the validity of the JWT.
+
+
