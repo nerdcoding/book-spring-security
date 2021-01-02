@@ -32,10 +32,10 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @EnableResourceServer
 public class RessourceServerConfig extends ResourceServerConfigurerAdapter {
 
-    private final String jwtKey;
+    private final String publicKey;
 
-    public RessourceServerConfig(@Value("${jwt.key}") final String jwtKey) {
-        this.jwtKey = jwtKey;
+    public RessourceServerConfig(@Value("${publicKey}") final String publicKey) {
+        this.publicKey = publicKey;
     }
 
     @Override
@@ -51,8 +51,7 @@ public class RessourceServerConfig extends ResourceServerConfigurerAdapter {
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         final JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey(jwtKey);
-        converter.setVerifierKey(jwtKey);
+        converter.setVerifierKey(publicKey);
 
         return converter;
     }

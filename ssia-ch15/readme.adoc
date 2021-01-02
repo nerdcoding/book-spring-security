@@ -26,3 +26,12 @@ the same signing key. With that key the authorization server will sign the JWT w
 created and the resource server will use that key, to check the validity of the JWT.
 
 
+=== Example 2
+
+```
+git checkout ch15-ex2
+```
+
+Using a JWT signed with an asymmetric key. The authorization uses the private key
+form a keystore to sign the JWT. The resource server uses the associated public key
+to check the JWTs validity.
