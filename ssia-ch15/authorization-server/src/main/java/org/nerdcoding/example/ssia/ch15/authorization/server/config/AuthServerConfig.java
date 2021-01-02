@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -31,18 +32,26 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
 @Configuration
 @EnableAuthorizationServer
 public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    private final String jwtKey;
+    private final String privateKey;
+    private final String privateKeyPassword;
+    private final String privateKeyAlias;
     private final AuthenticationManager authenticationManager;
 
     public AuthServerConfig(
-            @Value("${jwt.key}") final String jwtKey,
+            @Value("${privateKey}") final String privateKey,
+            @Value("${privateKey.password}") final String privateKeyPassword,
+            @Value("${privateKey.alias}") final String privateKeyAlias,
             @Autowired final AuthenticationManager authenticationManager) {
-        this.jwtKey = jwtKey;
+
+        this.privateKey = privateKey;
+        this.privateKeyPassword = privateKeyPassword;
+        this.privateKeyAlias = privateKeyAlias;
         this.authenticationManager = authenticationManager;
     }
 
@@ -90,8 +99,13 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
+        final KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(
+                new ClassPathResource(privateKey),
+                privateKeyPassword.toCharArray()
+        );
+
         final JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey(jwtKey);
+        converter.setKeyPair(keyStoreKeyFactory.getKeyPair(privateKeyAlias));
 
         return converter;
     }
