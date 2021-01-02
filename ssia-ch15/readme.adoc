@@ -35,3 +35,14 @@ git checkout ch15-ex2
 Using a JWT signed with an asymmetric key. The authorization uses the private key
 form a keystore to sign the JWT. The resource server uses the associated public key
 to check the JWTs validity.
+
+=== Example 3
+
+```
+git checkout ch15-ex3
+```
+
+Using a JWT signed with an asymmetric key, but this time the resource server has no
+configured public key. The authorization uses the private key form a keystore to sign
+the JWT. Here the resource server calls the `/oauth/token_key` endpoint from the
+authorization server, to get the public key and check the JWT validity.

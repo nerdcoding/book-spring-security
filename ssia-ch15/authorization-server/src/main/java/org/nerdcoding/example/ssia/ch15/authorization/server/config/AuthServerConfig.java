@@ -65,7 +65,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(final AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.checkTokenAccess("isAuthenticated()");
+        security.tokenKeyAccess("isAuthenticated()");
     }
 
     @Override
@@ -89,7 +89,10 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
                 .scopes("read")
                 .authorizedGrantTypes("password", "authorization_code", "refresh_token")
                 .redirectUris("http://127.0.0.1:9090/home")
-                .autoApprove(true);
+                .autoApprove(true)
+            .and()
+                .withClient("resourceserver")
+                .secret("resourceserversecret");
     }
 
     @Bean
